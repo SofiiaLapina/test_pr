@@ -1,19 +1,22 @@
 from django.urls import path
-from .views import RegisterView, LoginView, LeaderboardView
+from django.contrib.auth.views import LoginView, LogoutView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from .views import CustomLoginView
+from .views import RegisterView, LeaderboardView, CustomLoginView
 
 urlpatterns = [
-    # Шляхи для реєстрації
+    # Реєстрація
     path('register/', RegisterView.as_view(), name='register'),
 
-    # Шляхи для входу
+    # Вхід
     path('login/', CustomLoginView.as_view(), name='login_form'),
 
-    # Шляхи для отримання токенів
+    # Вихід
+    path('logout/', LogoutView.as_view(), name='logout'),
+
+    # JWT токени
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
-    # Шлях для відображення рейтингу
+    # Рейтинг
     path('leaderboard/', LeaderboardView.as_view(), name='leaderboard'),
 ]

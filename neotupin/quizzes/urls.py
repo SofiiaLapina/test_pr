@@ -11,7 +11,7 @@ from .views import (
     quizzes_by_difficulty,
     quiz_detail,
     start_quiz,
-    generate_quiz_question,  # Функція для генерації питання через ШІ
+    generate_quiz_question,
 )
 
 urlpatterns = [
@@ -21,11 +21,12 @@ urlpatterns = [
     # Категорії вікторин
     path('categories/', CategoryListView.as_view(), name='quiz_category_list'),
 
-    # Рівні складності для обраної категорії
+    # Рівні складності для категорій
     path('categories/<int:category_id>/difficulty/', DifficultyLevelView.as_view(), name='difficulty_list'),
 
-    # Вікторини за категорією та рівнем складності
-    path('categories/<int:category_id>/difficulty/<int:difficulty>/quizzes/', quizzes_by_difficulty, name='quizzes_by_difficulty'),
+    # Список вікторин за категорією та рівнем складності
+    path('categories/<int:category_id>/difficulty/<int:difficulty>/quizzes/',
+         quizzes_by_difficulty, name='quizzes_by_difficulty'),
 
     # Деталі вікторини
     path('quiz/<int:quiz_id>/', quiz_detail, name='quiz_detail'),
