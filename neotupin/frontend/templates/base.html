@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}НЕ#отупін{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1><a href="{% url 'home' %}">НЕ#отупін</a></h1>
+        <nav>
+            <a href="{% url 'home' %}">Головна</a>
+            <a href="{% url 'quiz_category_list' %}">Категорії</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}">Вийти</a>
+            {% else %}
+                <a href="{% url 'login_form' %}">Увійти</a>
+            {% endif %}
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>© 2024 НЕ#отупін. Усі права захищені.</p>
+    </footer>
+</body>
+</html>

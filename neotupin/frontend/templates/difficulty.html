@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рівень складності - {{ category.name }}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>{{ category.name }}</h1>
+        <nav>
+            <a href="{% url 'home' %}">Головна</a>
+            <a href="{% url 'quiz_category_list' %}">Категорії</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Оберіть рівень складності:</h2>
+            <ul>
+                <li>
+                    <a href="{% url 'quizzes_by_difficulty' category.id 1 %}">Легкий</a>
+                </li>
+                <li>
+                    <a href="{% url 'quizzes_by_difficulty' category.id 2 %}">Середній</a>
+                </li>
+                <li>
+                    <a href="{% url 'quizzes_by_difficulty' category.id 3 %}">Важкий</a>
+                </li>
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>© 2024 НЕ#отупін. Усі права захищені.</p>
+    </footer>
+</body>
+</html>

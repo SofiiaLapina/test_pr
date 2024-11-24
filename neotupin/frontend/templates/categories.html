@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Категорії вікторин</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Категорії вікторин</h1>
+        <nav>
+            <a href="{% url 'home' %}">Головна</a>
+        </nav>
+    </header>
+    <main>
+        <section class="categories">
+            <h2>Виберіть категорію</h2>
+            <ul>
+                {% for category in categories %}
+                    <li>
+                        <a href="{% url 'difficulty_list' category.id %}">
+                            {{ category.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>© 2024 НЕ#отупін. Усі права захищені.</p>
+    </footer>
+</body>
+</html>

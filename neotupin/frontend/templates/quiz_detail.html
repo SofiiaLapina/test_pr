@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ quiz.name }}</h1>
+    <p>{{ quiz.description }}</p>
+
+    {% if user.is_authenticated %}
+        <a href="{% url 'start_quiz' quiz.id %}" class="btn">Почати</a>
+    {% else %}
+        <p>Ви повинні увійти до акаунту, щоб почати вікторину.</p>
+        <a href="{% url 'login_form' %}?next={{ request.path }}" class="btn">Увійти</a>
+    {% endif %}
+{% endblock %}

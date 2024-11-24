@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="categories">
+    <h1 class="category-title">Вікторини у категорії "{{ category.name }}"</h1>
+    <ul class="quiz-list">
+        {% for quiz in quizzes %}
+            <li class="quiz-item">
+                <h3 class="quiz-name">{{ quiz.name }}</h3>
+                <p class="quiz-description">{{ quiz.description }}</p>
+                <a href="{% url 'quiz_detail' quiz.id %}" class="quiz-link">Дізнатися більше</a>
+            </li>
+        {% endfor %}
+    </ul>
+</main>
+{% endblock %}

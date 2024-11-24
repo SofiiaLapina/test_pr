@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рейтинг</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Рейтинг користувачів</h1>
+        <nav>
+            <a href="{% url 'home' %}">Головна</a>
+            <a href="{% url 'leaderboard' %}" class="active">Рейтинг</a>
+        </nav>
+    </header>
+    <main>
+        <section class="leaderboard">
+            <h2>Топ 10 користувачів</h2>
+            <ul>
+                {% for user in users %}
+                    <li>{{ forloop.counter }}. {{ user.username }} — {{ user.userprofile.score }} балів</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>© 2024 НЕ#отупін. Усі права захищені.</p>
+    </footer>
+</body>
+</html>

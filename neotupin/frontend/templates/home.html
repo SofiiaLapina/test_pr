@@ -1,0 +1,56 @@
+<!-- templates/home.html -->
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Головна</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>НЕ#отупін</h1>
+        <nav>
+            <a href="{% url 'home' %}" class="active">Головна</a>
+            <a href="{% url 'quiz_category_list' %}">Категорії</a>
+            <a href="{% url 'login_form' %}">Увійти</a>
+            <a href="{% url 'register' %}">Реєстрація</a>
+            <a href="{% url 'leaderboard' %}">Рейтинг</a>
+        </nav>
+    </header>
+    <main>
+        <section class="tournaments">
+            <h2>Майбутні турніри</h2>
+            {% if tournaments %}
+                {% for tournament in tournaments %}
+                    <div class="tournament-item">
+                        <h3>{{ tournament.name }}</h3>
+                        <p>Дата: {{ tournament.date }}</p>
+                        <p>Категорія: {{ tournament.category }}</p>
+                        <a href="{% url 'tournament_detail' tournament.id %}">Дізнатися більше...</a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Наразі немає майбутніх турнірів.</p>
+            {% endif %}
+        </section>
+
+        <section class="leaderboard">
+            <h2>Рейтинг топ 10 користувачів</h2>
+            <ul>
+                {% if top_users %}
+                    {% for user in top_users %}
+                        <li>{{ forloop.counter }}. {{ user.username }} (Рейтинг: {{ user.userprofile.score }})</li>
+                    {% endfor %}
+                {% else %}
+                    <li>Рейтинг поки що пустий.</li>
+                {% endif %}
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>© 2024 НЕ#отупін. Усі права захищені.</p>
+    </footer>
+</body>
+</html>
