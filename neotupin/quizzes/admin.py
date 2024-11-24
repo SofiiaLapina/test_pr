@@ -1,13 +1,14 @@
 from django.contrib import admin
 from .models import QuizCategory, Question, Quiz
-from .models import Quiz, QuizCategory
 from django.shortcuts import render, get_object_or_404
 
+# Адмінка для категорій вікторин
 @admin.register(QuizCategory)
 class QuizCategoryAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name')
-    search_fields = ('name',)
+    list_display = ('id', 'name')  # Відображення ID і назви категорії
+    search_fields = ('name',)  # Пошук за назвою категорії
 
+# Адмінка для запитань
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ('id', 'text', 'get_category')  # Додаємо 'get_category' для відображення категорії
@@ -18,13 +19,10 @@ class QuestionAdmin(admin.ModelAdmin):
         return obj.quiz.category.name if obj.quiz and obj.quiz.category else "Без категорії"
     get_category.short_description = 'Категорія'  # Назва стовпця в адмінці
 
+# Адмінка для вікторин
 @admin.register(Quiz)
 class QuizAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'category', 'difficulty')
-    search_fields = ('name', 'description')
-
-def quizzes_by_difficulty(request, category_id, difficulty):
-    category = get_object_or_404(QuizCategory, id=category_id)
-    quizzes = Quiz.objects.filter(category=category, difficulty=difficulty)
-    return render(request, 'quizzes_by_difficulty.html', {'category': category, 'quizzes': quizzes})
+    list_display = ('name', 'category', 'difficulty', 'description')  # Додано поле опису
+    search_fields = ('name', 'category__name')  # Додаємо пошук за назвою вікторини та категорією
+    list_filter = ('category', 'difficulty')  # Додаємо фільтри за категорією та складністю
 

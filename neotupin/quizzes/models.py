@@ -34,6 +34,7 @@ class Quiz(models.Model):
         verbose_name="Категорія"
     )
     difficulty = models.IntegerField(choices=DIFFICULTY_CHOICES, verbose_name="Рівень складності")
+    description = models.TextField(blank=True, null=True, verbose_name="Опис вікторини")  # Опис вікторини (необов'язковий)
 
     class Meta:
         verbose_name = "Вікторина"
