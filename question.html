@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Питання {{ question_index + 1 }} з {{ total_questions }}</title>
+    <script>
+        let timer = {{ time_limit }};
+        const interval = setInterval(() => {
+            document.getElementById("timer").innerText = `Залишилось часу: ${timer} секунд`;
+            timer--;
+            if (timer < 0) {
+                clearInterval(interval);
+                window.location.href = "{{ next_question_url }}";
+            }
+        }, 1000);
+    </script>
+</head>
+<body>
+    <h1>{{ question.question }}</h1>
+    <form method="POST" action="{% url 'handle_answer' quiz_id question_index %}">
+        {% csrf_token %}
+        {% for option in question.options %}
+            <div>
+                <input type="radio" name="answer" value="{{ option }}" id="option_{{ forloop.counter }}">
+                <label for="option_{{ forloop.counter }}">{{ option }}</label>
+            </div>
+        {% endfor %}
+        <button type="submit">Відповісти</button>
+    </form>
+    <p id="timer">Залишилось часу: {{ time_limit }} секунд</p>
+</body>
+</html>
